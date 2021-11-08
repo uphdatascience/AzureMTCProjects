@@ -27,7 +27,7 @@ from Encounter.PatientEncounter
 -- TRAINING | below is the logic for finding patients who will be training examples
 where ENCOUNTERCLASS = 'inpatient' -- readmissions work applies to inpatient stays, not observation or ED visits
       and [STOP] >= @StartDTS -- the start date of all "recent" hospitalizations or hospitalizations that we estimate are indicative of the current healthcare environment
-      --and [STOP] <= @EndDTS -- ensures that training patients have met the outcome window, 30 days out of hospital
+      and [STOP] <= @EndDTS -- ensures that training patients have met the outcome window, 30 days out of hospital
 
 -- PRODUCTION | population is any patient that is currently in the hospital, they will get a prediction for 30 day readmit risk each day
 -- where ENCOUNTERCLASS = 'inpatient' -- readmissions work applies to inpatient stays, not observation or ED visits
