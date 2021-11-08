@@ -15,9 +15,8 @@ declare @ReferenceDTS as datetime2;
 set @ReferenceDTS = dateadd(month, -18, dateadd(day, datediff(Day,0, getdate()), 0)); -- TRAINING | will allow us to find patients who were active of the date listed here (with help of dateadd in the WHERE clause)
 -- set @ReferenceDTS = dateadd(day, datediff(Day,0, getdate()), 0); -- PRODUCTION | will allow us to find patients who are active as of date listed here (today), only want to score active patients
 
-select distinct PATIENT
+select distinct PATIENT as PatientID
                 , @ReferenceDTS as ReferenceDTS -- the date by which features and target will be measured from in downstream queries
 into ProjectOne.Population
 from Encounter.PatientEncounter
 where [START] > dateadd(month, -12, @ReferenceDTS) -- get all encounters in the past 12 months of @ReferenceDTS, resulting patients are the patients we say are "active" patients when assessing as of @ReferenceDTS
-

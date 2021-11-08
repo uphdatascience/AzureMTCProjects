@@ -20,7 +20,8 @@ declare @EndDTS as datetime2;
 set @StartDTS = dateadd(month, -18, dateadd(day, datediff(Day,0, getdate()), 0)); -- TRAINING | The furthest back we want to go to find discharges to use to train the models. More than 18 months might not reflect what the healthcare environment looks like right now
 set @EndDTS = dateadd(day, -30, dateadd(day, datediff(Day,0, getdate()), 0)); -- TRAINING | The date that any training examples must be as of, anyone after this has not had 30 outside of the hospital so they haven't met the outcome window (30 days readmissions)
 
-select distinct PATIENT
+select distinct PATIENT as PatientID
+                , Id as PatientEncounterID
                 , [STOP] as ReferenceDTS -- all features and target will be judged on this, different for every patient. readmission target is 30 days from this date, features within 12 months looking back
 into ProjectTwo.Population
 from Encounter.PatientEncounter
