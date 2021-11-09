@@ -61,7 +61,12 @@ Our team has 4 different type of workloads that run for our work.
 **Tool Data Sources:** Similar run process as Training and Production pipelines but without ML. This will produce a tabular dataset that can be fed into a visualization tool. SQL queries run in a certain order and create a final output table. The process might incorporate predictions from Production/Scoring pipelines if applicable. 
 
 
-# Project 1
+# Example Projects
+These are the types of projects that we would need to be able to replicate in Azure that we currently do in our vendor tool or on-prem. Project 1 and 2 are projects that have different data grains and different population set-ups (1 has the same ReferenceDTS for all patients where 2 has a different one for each patient - for training mode). These examples are scaled down significantly from what is actually in production but highlight enough to give you an idea of the project/process.
+
+**These queries use fake tables/patient data loaded into Azure SQL database.**
+
+## Project 1
 This project predicts the likelihood of an ED visit in the next 12 months for each active patient in the system. This is a scaled down version of our ED or inpatient visit in the next 12 months risk score that fuels the Care Management program at UnityPoint.
 
 Only "active" patients get a risk score based on this prediction. We have defined an active patient as one who has visited a UPH facility in the past 12 months. We want to make sure clinicians are contacting patients who have a tie to UPH. Care Managers spend time working up and contacting patients to encourage them to enroll in the program and if they spend this time on non-active patients, it wastes their time. This active group of patients is identified by the **Population** query in the project folder.
@@ -72,7 +77,7 @@ Project Data Pipeline (click to view source):
     ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline.png)
 
 
-# Project 2
+## Project 2
 This project predicts the likelihood of a readmission to the hospital within 30 days of discharge, a common healthcare outcomes metric. We currently have a model in production that does this. Our model in production predicts 30-day risk but also day-by-day risk within the 30 days.
 
 Training population will be patients discharged in a specific period of time (usually between 18 months ago and up until 30 days ago) and the Production pipeline will be patients currently in the hospital. In this pared down example, A1c and potassium are features and readmission within 30 days of discharge is the target. **ModelingData** combines the population, features, and target into a data set to feed to a training pipeline or scoring script.
@@ -81,11 +86,11 @@ Project Data Pipeline (click to view source):
     ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline.png)
 
 
-# Project 3
+## Project 3
 This is a mock data source for a tool that our users would interact with. This type of pipeline essentially gathers characteristics of patients along with some of the predictive model output (although not in this one because of simplicity's sake) to combine into a view that a clinician can make sense of. In our current tools, they aren't just given the prediction and left to piece together the rest of the picture of the patient's health. For example, working with Care Managers, we learned that they not only care about a patient's risk for adverse health outcomes (ED/inpatient encounter), they pair the prediction with whether they were in the hospital recently and whether or not they have an appointment coming up in the clinic. Certain patients may receive higher priority for enrollment based on the combination of the three data points. This pipeline allows for that data to be gathered in one data source and be fed to a BI tool.
 
 This project would follow a similar data pipeline like Project 1 and 2 but instead of an R/Python section after the modeling data, the modeling data (or tool data source in this case) would be connected to a BI tool.
 
 
-# Project 4
+## Project 4
 Sometimes we get ad-hoc work that is better completed in a language like R or Python or it needs to be updated frequently (using our vendor tool and SQL limits us in some of these cases). In these cases, we will write a script that ingests datam does manipulation, then outputs info (CSV, SQL table, etc). The data will then be picked up by a BI tool. Any scheduling will be done by Task Scheduler on a server (that is not always near-100% reliable like a VM in the cloud). This example is incredibly basic but was included because it is how a couple of projects currently work.
