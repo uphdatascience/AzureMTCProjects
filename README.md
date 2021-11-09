@@ -67,9 +67,8 @@ Only "active" patients get a risk score based on this prediction. We have define
 
 Features used to predict the risk of ED visit are A1c and potassium labs. The **TargetEDEncounterFLG** creates a 1/0 flag for if the target (ED visit in next 12 months) happened. **ModelingData** joins all of the queries together into a data set suitable for training an ML model or feeding through an already created model for batch scoring.
 
-Project Data Pipeline:
-    <image here>
-
+Project Data Pipeline (click to view source):
+    ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline.png)
 
 
 # Project 2
@@ -77,12 +76,14 @@ This project predicts the likelihood of a readmission to the hospital within 30 
 
 Training population will be patients discharged in a specific period of time (usually between 18 months ago and up until 30 days ago) and the Production pipeline will be patients currently in the hospital. In this pared down example, A1c and potassium are features and readmission within 30 days of discharge is the target. **ModelingData** combines the population, features, and target into a data set to feed to a training pipeline or scoring script.
 
-Project Data Pipeline:
-    <image here>
+Project Data Pipeline (click to view source):
+    ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline.png)
 
 
 # Project 3
 This is a mock data source for a tool that our users would interact with. This type of pipeline essentially gathers characteristics of patients along with some of the predictive model output (although not in this one because of simplicity's sake) to combine into a view that a clinician can make sense of. In our current tools, they aren't just given the prediction and left to piece together the rest of the picture of the patient's health. For example, working with Care Managers, we learned that they not only care about a patient's risk for adverse health outcomes (ED/inpatient encounter), they pair the prediction with whether they were in the hospital recently and whether or not they have an appointment coming up in the clinic. Certain patients may receive higher priority for enrollment based on the combination of the three data points. This pipeline allows for that data to be gathered in one data source and be fed to a BI tool.
+
+This project would follow a similar data pipeline like Project 1 and 2 but instead of an R/Python section after the modeling data, the modeling data (or tool data source in this case) would be connected to a BI tool.
 
 
 # Project 4
