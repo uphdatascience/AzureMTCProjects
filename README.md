@@ -31,6 +31,7 @@ For each # where it says write a query below, we write the code and put it in th
 9. Write final R scoring script and upload into vendor tool
 10. Run the final packaged project (pop, feature, target, modelingdata tables along with model file and R scoring script) to make sure everything will run in one smooth process
 
+Our vendor handles all ETL (the technical parts of it), data orchestration, MLOps, compute, etc. We provide the SQL to gather all the data and the R scripts to score patients. We then have our training scripts that we keep separately
 
 # Future Data Stack Interests
 - Apache Airflow (or derivative) for orchestration
