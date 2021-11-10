@@ -20,18 +20,20 @@ For context, consider looking at project section to understand the pipelines mor
 
 For each # where it says write a query below, we write the code and put it in the vendor's tool. The tool checks if the tables in the FROM and JOINs exist and will only save if they do. It also will create the output table itself (will not have INTO keyword in the queries like they are in this repo). The vendor system will also map/parse the FROM and JOIN tables and run the queries in the appropriate order without us needing to tell it which order things should run in.
 
-1. Write population query for the project and set to "training mode" (output population table in EDW)
+1. Write population query for the project and set to "training mode"* (output population table in EDW)
 2. Write feature queries using the population table (output each as their own table)
 3. Write the target query using the population table (output as it's own EDW table)
 4. Write the modeling/scoring data set table using the population, feature, target table (output to table)
 5. Do EDA and assess if more development work is needed on pop, features, target
 6. Write training script for model development and test model performance
-7. Flip pop, feature, target, modeling queries into "scoring mode"
+7. Flip pop, feature, target, modeling queries into "scoring mode"*
 8. Upload model file (RData) into vendor tool
 9. Write final R scoring script and upload into vendor tool
 10. Run the final packaged project (pop, feature, target, modelingdata tables along with model file and R scoring script) to make sure everything will run in one smooth process
 
 Our vendor handles all ETL (the technical parts of it), data orchestration, MLOps, compute, etc. We provide the SQL to gather all the data and the R scripts to score patients. We then have our training scripts that we keep separately
+
+*Training and Scoring mode refer to changes in the population queries of an ML pipeline (Project 1 and 2 below) that we have to make in our vendor tool depending on what orientation we need the data in. You'll notice that the Training orientation in Project 2 is to include any discharges in a 17 month period while the Scoring orientation is to include any patients currently in the hospital. When we put our code for an ML pipeline in our vendor tool, we modify the population query this way based on the phase of the project.
 
 # Future Data Stack Interests
 - Apache Airflow (or derivative) for orchestration
@@ -83,7 +85,7 @@ Only "active" patients get a risk score based on this prediction. We have define
 Features used to predict the risk of ED visit are A1c and potassium labs. The **TargetEDEncounterFLG** creates a 1/0 flag for if the target (ED visit in next 12 months) happened. **ModelingData** joins all of the queries together into a data set suitable for training an ML model or feeding through an already created model for batch scoring.
 
 Project Data Pipeline (click to view source):
-    ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline.png)
+    ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline%20New.png)
 
 
 ## Project 2
@@ -92,7 +94,7 @@ This project predicts the likelihood of a readmission to the hospital within 30 
 Training population will be patients discharged in a specific period of time (usually between 18 months ago and up until 30 days ago) and the Production pipeline will be patients currently in the hospital. In this pared down example, A1c and potassium are features and readmission within 30 days of discharge is the target. **ModelingData** combines the population, features, and target into a data set to feed to a training pipeline or scoring script.
 
 Project Data Pipeline (click to view source):
-    ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline.png)
+    ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline%20New.png)
 
 
 ## Project 3
