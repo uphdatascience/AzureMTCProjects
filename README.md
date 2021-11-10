@@ -35,9 +35,18 @@ Our vendor handles all ETL (the technical parts of it), data orchestration, MLOp
 
 # Future Data Stack Interests
 - Apache Airflow (or derivative) for orchestration
+    - need an orchestration system that has tracking abilities built in
+        - track individual DAGs (start time, finish time, seconds/minutes it ran, etc)
+        - track each pipeline (start time, finish time, seconds/minutes it ran, etc)
+        - customization to track row count of output would be nice
 - Apache Spark
+- Azure Data Factory for incremental loading of source data
+    - we have figured out the full load / query based copy data tool but need something for incremental loading (loading only what's changed in the source)
 - Synapse Analytics
 - Feature Stores
+    - what are they?
+    - how are they used?
+    - what types of our pipelines can they be used for? training, scoring, tool data source?
 - PowerBI
 
 
