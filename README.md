@@ -86,6 +86,9 @@ Features used to predict the risk of ED visit are A1c and potassium labs. The **
 
 Project Data Pipeline (click to view source):
     ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline%20New.png)
+    
+Project Table Examples (click to view source):
+    ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/ed%20visits%20table%20pipeline.png)
 
 
 ## Project 2
@@ -95,6 +98,9 @@ Training population will be patients discharged in a specific period of time (us
 
 Project Data Pipeline (click to view source):
     ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/Data%20Pipeline%20New.png)
+    
+Project Table Examples (click to view source):
+    ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/readmissions%20table%20pipeline.png)
 
 
 ## Project 3
