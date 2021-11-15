@@ -89,6 +89,9 @@ Project Data Pipeline (click to view source):
     
 Project Table Examples (click to view source):
     ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/ed%20visits%20table%20pipeline.png)
+    
+Project Feature/Target Date Range Diagram:
+    ![date pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/ed%20visit%20date%20ranges.png)
 
 
 ## Project 2
@@ -102,6 +105,8 @@ Project Data Pipeline (click to view source):
 Project Table Examples (click to view source):
     ![data pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/readmissions%20table%20pipeline.png)
 
+Project Feature/Target Date Range Diagram:
+    ![date pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/readmissions%20date%20ranges.png)
 
 ## Project 3
 This is a mock data source for a tool that our users would interact with. This type of pipeline essentially gathers characteristics of patients along with some of the predictive model output (although not in this one because of simplicity's sake) to combine into a view that a clinician can make sense of. In our current tools, they aren't just given the prediction and left to piece together the rest of the picture of the patient's health. For example, working with Care Managers, we learned that they not only care about a patient's risk for adverse health outcomes (ED/inpatient encounter), they pair the prediction with whether they were in the hospital recently and whether or not they have an appointment coming up in the clinic. Certain patients may receive higher priority for enrollment based on the combination of the three data points. This pipeline allows for that data to be gathered in one data source and be fed to a BI tool.
