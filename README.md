@@ -116,3 +116,20 @@ This project would follow a similar data pipeline like Project 1 and 2 but inste
 
 ## Project 4
 Sometimes we get ad-hoc work that is better completed in a language like R or Python or it needs to be updated frequently (using our vendor tool and SQL limits us in some of these cases). In these cases, we will write a script that ingests datam does manipulation, then outputs info (CSV, SQL table, etc). The data will then be picked up by a BI tool. Any scheduling will be done by Task Scheduler on a server (that is not always near-100% reliable like a VM in the cloud). This example is incredibly basic but was included because it is how a couple of projects currently work.
+
+
+## Hands-on MTC Info
+
+This folder has some information for the 11/22-23 hands-on portion of our MTC work. It highlights the ingest and process for one of our common features, hospital encounters (emergency, inpatient, observation). 
+
+The initial load consists of a `select *` on 8 tables that need to eventually be combined to give us the needed information for hospital encounters. Those will be saved into the data lake inside Azure. A query/Spark job will need to be run to get them into "feature format". The SQL query that we use now to get them into "feature format" is in the HandsOn folder for you to view. The SQL query shows that certain codes in certain tables get us to our end goal of identifying ED, IP, and OBS visits and that it's not as easy as just pulling one table over or filtering on one field. 
+
+Each table though, will incrementally update daily (especially the PatientHospitalEncounter table). Other tables might update periodically depending on the info they contain. We have the Clarity stored procs that tell us what rows in the PatientHospitalEncounter are either new or updated. We can run the stored proc and pull those new or updated rows over to Azure. We will need a way to insert/replace the new/updated rows in our pipeline (bottom half of image below). 
+
+As depicted, the inital load of a table like PatientHospitalEncounter might be 62 million rows but incremental loads will only send over 20,000-ish rows each day for a much lower lift daily. Some tables that have more descriptive data will not update regularly.
+
+![encounter pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/HandsOnMTCInfo/encounter%20ingest%20and%20process%20pipeline.png)
+
+The image below gives fake data to see how one of the tables in this encounter feature pipeline would be initially loaded and incrementally loaded. The top half shows the initial load. The bottom half shows the incremental load and how rows may be created or updated.
+
+![encounter pipeline](https://github.com/uphdatascience/AzureMTCProjects/blob/master/HandsOnMTCInfo/encounter%20ingest%20and%20process%20table%20examples.png)
